@@ -20,6 +20,6 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
-    output = results()
+    # output = results()
 
-    return (output, 200, headers)
+    return ("done", 200, headers)
