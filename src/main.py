@@ -21,5 +21,8 @@ def main(request):
     headers = {"Access-Control-Allow-Origin": "*"}
 
     print(request.values)
+    print("request recieved")
+
+    print(request)
 
     return ("done", 200, headers)
