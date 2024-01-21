@@ -26,9 +26,8 @@ def main(request):
     # print(type(request))
     # print(type(data))
 
-    test = request.form['From']
-
-    print(test)
+    data = request.form
+    print(data)
 
     # # Decode UTF-8 bytes to Unicode, and convert single quotes
     # # to double quotes to make it valid JSON
