@@ -26,11 +26,10 @@ def main(request):
     # print(type(request))
     # print(type(data))
 
-    content = request.args
+    test = request.form['From']
 
-    # print(type(content))
+    print(test)
 
-    print(json.dumps(content, indent=4))
     # # Decode UTF-8 bytes to Unicode, and convert single quotes
     # # to double quotes to make it valid JSON
     # my_json = data.decode('utf8').replace("'", '"')
