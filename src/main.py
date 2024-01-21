@@ -1,4 +1,5 @@
 import functions_framework
+import json
 from functions import *
 
 
@@ -20,9 +21,14 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
+    data = request.get_data()
+
+    res = json.loads(data.decode('unicode_escape'))
+
     print(request.get_data())
+
     print("request recieved")
 
-    print(request)
+    print(res)
 
     return ("done", 200, headers)
