@@ -26,9 +26,9 @@ def main(request):
     # print(type(request))
     # print(type(data))
 
-    content = request.get_json()
+    content = request.args
 
-    print(type(content))
+    # print(type(content))
 
     print(content)
 
