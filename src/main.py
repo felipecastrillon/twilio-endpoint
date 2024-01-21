@@ -21,10 +21,10 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
-    data = request.get_data()
+    # data = request.get_data()
 
-    print(type(request))
-    print(type(data))
+    # print(type(request))
+    # print(type(data))
 
     content = request.get_json()
 
