@@ -23,7 +23,16 @@ def main(request):
 
     data = request.get_data()
 
-    res = json.loads(data.value.decode('unicode_escape'))
+    # Decode UTF-8 bytes to Unicode, and convert single quotes
+    # to double quotes to make it valid JSON
+    my_json = data.decode('utf8').replace("'", '"')
+    print(my_json)
+    print('- ' * 20)
+
+    # Load the JSON to a Python list & dump it back out as formatted JSON
+    data = json.loads(my_json)
+    s = json.dumps(data, indent=4, sort_keys=True)
+    print(s)
 
     print(request.get_data())
 
