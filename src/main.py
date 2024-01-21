@@ -27,7 +27,13 @@ def main(request):
     # print(type(data))
 
     data = request.form
-    print(data)
+
+    # Converting to JSON format
+    myJSON = json.dumps(data)
+
+    # Displaying the JSON format
+    print(myJSON)
+    # print(data)
 
     # # Decode UTF-8 bytes to Unicode, and convert single quotes
     # # to double quotes to make it valid JSON
