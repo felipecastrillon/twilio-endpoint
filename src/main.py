@@ -30,8 +30,7 @@ def main(request):
 
     # print(type(content))
 
-    print(content)
-
+    print(json.dumps(content, indent=4))
     # # Decode UTF-8 bytes to Unicode, and convert single quotes
     # # to double quotes to make it valid JSON
     # my_json = data.decode('utf8').replace("'", '"')
