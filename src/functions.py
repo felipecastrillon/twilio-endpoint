@@ -55,7 +55,7 @@ def mms_process(dict):
 
     # r = requests.get(media_url, stream=True)
 
-    with open('{}/{}'.format(DOWNLOAD_DIRECTORY, filename), 'wb') as f:
+    with open(filename, 'wb') as f:
         image_url = media_url
         f.write(requests.get(image_url).content)
     print("processing mms")
