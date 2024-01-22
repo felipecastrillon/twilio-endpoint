@@ -23,8 +23,8 @@ def main(request):
 
     data = request.form
 
-    # if data["numMedia"] != "0":
-    #     print("start")
+    if data["numMedia"] != "0":
+        print("start")
     #     mms_process(data)
 
     #     filename = data["SmsSid"] + ".png"
