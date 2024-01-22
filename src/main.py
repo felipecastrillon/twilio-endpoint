@@ -23,23 +23,23 @@ def main(request):
 
     data = request.form
 
-    if data["numMedia"] != "0":
-        print("start")
-        mms_process(data)
+    # if data["numMedia"] != "0":
+    #     print("start")
+    #     mms_process(data)
 
-        filename = data["SmsSid"] + ".png"
+    #     filename = data["SmsSid"] + ".png"
 
-        destination_file = os.path.realpath(os.path.join(
-            os.path.dirname(__file__), '..')) + "/images/" + filename
+    #     destination_file = os.path.realpath(os.path.join(
+    #         os.path.dirname(__file__), '..')) + "/images/" + filename
 
-        bucket_name = "twillio-images"
-        source_file_name = destination_file
-        destination_blob_name = filename
+    #     bucket_name = "twillio-images"
+    #     source_file_name = destination_file
+    #     destination_blob_name = filename
 
-        upload_blob(bucket_name, source_file_name, destination_blob_name)
+    #     upload_blob(bucket_name, source_file_name, destination_blob_name)
 
-    if data["numMedia"] == "0":
-        sms_process(data)
+    # if data["numMedia"] == "0":
+    #     sms_process(data)
 
     # Converting to JSON format
     myJSON = json.dumps(data)
