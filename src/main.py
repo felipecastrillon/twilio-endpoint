@@ -4,7 +4,7 @@ from functions import *
 
 
 @functions_framework.http
-async def main(request):
+def main(request):
 
     if request.method == "OPTIONS":
         # Allows GET requests from any origin with the Content-Type
@@ -25,7 +25,7 @@ async def main(request):
 
     if data["numMedia"] != "0":
         print("start")
-        await mms_process(data)
+        mms_process(data)
 
         filename = data["SmsSid"] + ".png"
 
@@ -36,7 +36,7 @@ async def main(request):
         source_file_name = destination_file
         destination_blob_name = filename
 
-        await upload_blob(bucket_name, source_file_name, destination_blob_name)
+        upload_blob(bucket_name, source_file_name, destination_blob_name)
 
     if data["numMedia"] == "0":
         sms_process(data)

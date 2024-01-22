@@ -40,7 +40,7 @@ def number_mask(hash_str):
     return out
 
 
-def mms_process(dict):
+async def mms_process(dict):
 
     # media_url = "https://api.twilio.com/2010-04-01/Accounts/AC26d1f8d778dbb994a245d009031c15df/Messages/MM5d61e6c40b3d39bd2af2134570123a89/Media/ME7c6a0ed52668d7c9b4d5cbef9ba71d24"
     # filename = "MM5d61e6c40b3d39bd2af2134570123a89.png"
@@ -59,5 +59,5 @@ def mms_process(dict):
     print("processing mms")
 
 
-def sms_process(dict):
+async def sms_process(dict):
     print("processing sms")
