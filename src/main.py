@@ -36,7 +36,7 @@ def main(request):
     #     os.path.dirname(__file__), '..')) + "/images/" + filename
 
     bucket_name = "twillio-images"
-    source_file_name = "/images/" + filename
+    source_file_name = filename
 
     destination_blob_name = filename
 

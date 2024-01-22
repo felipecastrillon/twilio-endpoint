@@ -49,7 +49,7 @@ async def mms_process(dict):
     filename = dict["SmsSid"] + ".png"
 
     DOWNLOAD_DIRECTORY = os.path.realpath(os.path.join(
-        os.path.dirname(__file__), '..')) + "/images"
+        os.path.dirname(__file__), '..')) + "/src"
 
     # r = requests.get(media_url, stream=True)
 
