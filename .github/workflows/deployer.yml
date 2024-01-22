@@ -62,4 +62,5 @@ jobs:
           --trigger-http \
           --allow-unauthenticated \
           --min-instances=1 \
-          --source=gs://twilio-endpoint-source/src.zip"
+          --source=gs://twilio-endpoint-source/src.zip \
+          --set-env-vars KEY=$hmac"
