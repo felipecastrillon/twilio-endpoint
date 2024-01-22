@@ -24,7 +24,7 @@ def main(request):
     data = request.form
 
     print(data["numMedia"])
-    if data["numMedia"] != "0":
+    if data["numMedia"] == 0:
         print("mms")
     else:
         print("not mms")

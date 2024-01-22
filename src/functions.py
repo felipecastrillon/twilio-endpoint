@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import requests
 import os
 from google.cloud import storage
-
+import time
 import firebase_admin
 from firebase_admin import firestore
 
@@ -59,6 +59,12 @@ def sms_process(dict):
 
 
 def save_results(id, user, file):
+
+    import datetime
+
+    # ct stores current time
+    ct = datetime.datetime.now()
+
     if not firebase_admin._apps:
         firebase_admin.initialize_app()
 
@@ -66,4 +72,5 @@ def save_results(id, user, file):
 
     doc_ref = db.collection("gemini-demo-text").document(id)
     doc_ref.set({"user": user, "fileName": file,
-                "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file})
+                "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file,
+                 "timeStamp": ct})
