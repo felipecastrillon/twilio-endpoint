@@ -23,11 +23,11 @@ def main(request):
 
     data = request.form
 
-    flag = str(data["numMedia"])
+    flag = str(data["MediaContentType0"])
 
     print("flag type" + flag)
 
-    if flag == "0":
+    if flag == "image/png":
         print("mms")
     else:
         print("not mms")
