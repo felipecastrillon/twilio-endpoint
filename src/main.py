@@ -1,5 +1,5 @@
 import functions_framework
-# import json
+import json
 from functions import *
 
 
@@ -24,6 +24,7 @@ def main(request):
     data = request.form
 
     if data["numMedia"] != "0":
+        print("start")
         mms_process(data)
 
         filename = data["SmsSid"] + ".png"
@@ -40,12 +41,12 @@ def main(request):
     if data["numMedia"] == "0":
         sms_process(data)
 
-    # # Converting to JSON format
-    # myJSON = json.dumps(data)
+    # Converting to JSON format
+    myJSON = json.dumps(data)
 
-    # print(number_mask(data["From"]))
+    print(number_mask(data["From"]))
 
-    # # Displaying the JSON format
-    # print(myJSON)
+    # Displaying the JSON format
+    print(myJSON)
 
     return ("done", 200, headers)
