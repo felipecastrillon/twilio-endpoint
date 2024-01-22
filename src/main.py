@@ -23,7 +23,7 @@ def main(request):
 
     data = request.form
 
-    print(data["numMedia"])
+    # print(data["numMedia"])
     # if data["numMedia"] == 0:
     #     print("mms")
     # else:
