@@ -12,3 +12,7 @@ def number_mask(hash_str):
     val = hash_str + key
 
     print(sha256(val.encode('utf-8')).hexdigest())
+
+    out = sha256(val.encode('utf-8')).hexdigest()
+
+    return out

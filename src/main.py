@@ -21,35 +21,14 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
-    # data = request.get_data()
-
-    # print(type(request))
-    # print(type(data))
-
     data = request.form
 
     # Converting to JSON format
     myJSON = json.dumps(data)
 
+    print(number_mask(data["From"]))
+
     # Displaying the JSON format
     print(myJSON)
-    # print(data)
-
-    # # Decode UTF-8 bytes to Unicode, and convert single quotes
-    # # to double quotes to make it valid JSON
-    # my_json = data.decode('utf8').replace("'", '"')
-    # print(my_json)
-    # print('- ' * 20)
-
-    # # Load the JSON to a Python list & dump it back out as formatted JSON
-    # data = json.loads(my_json)
-    # s = json.dumps(data, indent=4, sort_keys=True)
-    # print(s)
-
-    # print(request.get_data())
-
-    # print("request recieved")
-
-    # print(res)
 
     return ("done", 200, headers)
