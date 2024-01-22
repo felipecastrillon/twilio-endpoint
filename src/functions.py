@@ -5,6 +5,9 @@ import requests
 import os
 from google.cloud import storage
 
+import firebase_admin
+from firebase_admin import firestore
+
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
 
@@ -42,18 +45,8 @@ def number_mask(hash_str):
 
 def mms_process(dict):
 
-    # media_url = "https://api.twilio.com/2010-04-01/Accounts/AC26d1f8d778dbb994a245d009031c15df/Messages/MM5d61e6c40b3d39bd2af2134570123a89/Media/ME7c6a0ed52668d7c9b4d5cbef9ba71d24"
-    # filename = "MM5d61e6c40b3d39bd2af2134570123a89.png"
-
     media_url = dict["MediaUrl0"]
     filename = dict["SmsSid"] + ".png"
-
-    # DOWNLOAD_DIRECTORY = os.path.realpath(os.path.join(
-    #     os.path.dirname(__file__), '..')) + "/src"
-
-    DOWNLOAD_DIRECTORY = ""
-
-    # r = requests.get(media_url, stream=True)
 
     with open(filename, 'wb') as f:
         image_url = media_url
@@ -63,3 +56,14 @@ def mms_process(dict):
 
 def sms_process(dict):
     print("processing sms")
+
+
+def save_results(id, user, file):
+    if not firebase_admin._apps:
+        firebase_admin.initialize_app()
+
+    db = firestore.client()
+
+    doc_ref = db.collection("gemini-demo-text").document(id)
+    doc_ref.set({"user": user, "fileName": file,
+                "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file})
