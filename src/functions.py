@@ -1,6 +1,7 @@
 
 from hashlib import sha256
 from dotenv import load_dotenv
+import os
 
 
 def number_mask(hash_str):
