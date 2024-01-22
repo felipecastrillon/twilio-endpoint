@@ -32,11 +32,12 @@ def main(request):
 
     filename = data["SmsSid"] + ".png"
 
-    destination_file = os.path.realpath(os.path.join(
-        os.path.dirname(__file__), '..')) + "/images/" + filename
+    # destination_file = os.path.realpath(os.path.join(
+    #     os.path.dirname(__file__), '..')) + "/images/" + filename
 
     bucket_name = "twillio-images"
-    source_file_name = destination_file
+    source_file_name = "/images/" + filename
+
     destination_blob_name = filename
 
     upload_blob(bucket_name, source_file_name, destination_blob_name)
