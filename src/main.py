@@ -1,5 +1,5 @@
 import functions_framework
-import json
+# import json
 from functions import *
 
 
@@ -23,12 +23,29 @@ def main(request):
 
     data = request.form
 
-    # Converting to JSON format
-    myJSON = json.dumps(data)
+    if data["numMedia"] != "0":
+        mms_process(data)
 
-    print(number_mask(data["From"]))
+        filename = data["SmsSid"] + ".png"
 
-    # Displaying the JSON format
-    print(myJSON)
+        destination_file = os.path.realpath(os.path.join(
+            os.path.dirname(__file__), '..')) + "/images/" + filename
+
+        bucket_name = "twillio-images"
+        source_file_name = destination_file
+        destination_blob_name = filename
+
+        upload_blob(bucket_name, source_file_name, destination_blob_name)
+
+    if data["numMedia"] == "0":
+        sms_process(data)
+
+    # # Converting to JSON format
+    # myJSON = json.dumps(data)
+
+    # print(number_mask(data["From"]))
+
+    # # Displaying the JSON format
+    # print(myJSON)
 
     return ("done", 200, headers)
