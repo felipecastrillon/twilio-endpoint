@@ -51,7 +51,7 @@ def mms_process(dict):
     # DOWNLOAD_DIRECTORY = os.path.realpath(os.path.join(
     #     os.path.dirname(__file__), '..')) + "/src"
 
-    DOWNLOAD_DIRECTORY = "src"
+    DOWNLOAD_DIRECTORY = ""
 
     # r = requests.get(media_url, stream=True)
 
