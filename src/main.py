@@ -23,29 +23,29 @@ def main(request):
 
     data = request.form
 
-    if data["numMedia"] != "0":
+    # if data["numMedia"] != "0":
 
-        # download image from twillio
-        mms_process(data)
+    # download image from twillio
+    mms_process(data)
 
-        # list directory
-        for x in os.listdir():
-            print(x)
+    # list directory
+    for x in os.listdir():
+        print(x)
 
-        filename = data["SmsSid"] + ".png"
+    filename = data["SmsSid"] + ".png"
 
-        bucket_name = "twillio-images"
-        source_file_name = filename
-        destination_blob_name = filename
+    bucket_name = "twillio-images"
+    source_file_name = filename
+    destination_blob_name = filename
 
-        # Upload image to gcs bucket
-        upload_blob(bucket_name, source_file_name, destination_blob_name)
+    # Upload image to gcs bucket
+    upload_blob(bucket_name, source_file_name, destination_blob_name)
 
-        # save metadata to firestore
-        save_results(data["SmsSid"], number_mask(data["From"]), filename)
+    # save metadata to firestore
+    save_results(data["SmsSid"], number_mask(data["From"]), filename)
 
-    else:
-        sms_process(data)
+    # else:
+    #     sms_process(data)
 
     # Converting to JSON format
     myJSON = json.dumps(data)
