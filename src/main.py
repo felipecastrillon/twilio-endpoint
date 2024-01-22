@@ -23,7 +23,11 @@ def main(request):
 
     data = request.form
 
-    # if data["numMedia"] != "0":
+    print(data["numMedia"])
+    if data["numMedia"] != "0":
+        print("mms")
+    else:
+        print("not mms")
 
     # download image from twillio
     mms_process(data)
