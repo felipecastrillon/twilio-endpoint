@@ -28,6 +28,9 @@ def main(request):
 
     mms_process(data)
 
+    for x in os.listdir():
+        print(x)
+
     print("mms done")
 
     filename = data["SmsSid"] + ".png"
