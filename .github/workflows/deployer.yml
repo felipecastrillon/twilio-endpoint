@@ -67,4 +67,4 @@ jobs:
           --allow-unauthenticated \
           --min-instances=1 \
           --source=gs://twilio-endpoint-source/src.zip \
-          --set-env-vars hmac_val=$HMAC"
+          --set-env-vars HMAC_VAL=$HMAC"

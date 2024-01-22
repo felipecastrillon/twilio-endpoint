@@ -7,7 +7,7 @@ def number_mask(hash_str):
 
     load_dotenv()
 
-    key = os.getenv('hmac_val')
+    key = os.getenv('HMAC_VAL')
 
     val = hash_str + key
 
