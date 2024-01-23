@@ -72,7 +72,8 @@ def main(request):
 
             print(genai_ouput)
 
-            update_collection2(data["SmsSid"], data["Body"], genai_ouput)
+            update_collection2(doc["fileName"].split(
+                ".")[0], data["Body"], genai_ouput)
 
         #  debug: print entire payload from twillio
         myJSON = json.dumps(data)
