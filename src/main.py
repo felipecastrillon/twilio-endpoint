@@ -29,7 +29,7 @@ def main(request):
 
     flag = str(data["NumMedia"])
 
-    print("flag type" + flag)
+    print("flag type " + flag)
 
     # if flag == "image/jpeg" or flag == "image/png":
     #     print("mms")
@@ -63,7 +63,7 @@ def main(request):
 
     docs = (
         db.collection("gemini-demo-text")
-        .where(filter=FieldFilter("user", "==", user))
+        .where(filter=FieldFilter("user", "==", number_mask(data["From"])))
         .order_by("timeStamp").limit_to_last(1)
         .get()
     )
