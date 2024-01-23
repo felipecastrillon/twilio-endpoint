@@ -61,7 +61,7 @@ def main(request):
         else:
 
             #  retrieve last image URL uploaded by same user from Firestore
-            time.sleep(15)
+            time.sleep(30)
             doc = return_image(number_mask(data["From"]))
             filename = doc["fileName"]
 
