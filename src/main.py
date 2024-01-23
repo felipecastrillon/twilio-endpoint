@@ -49,8 +49,12 @@ def main(request):
             # Upload image to gcs bucket
             upload_blob(bucket_name, filename, filename)
 
-            # save metadata to firestore (filename, masked identifier)
-            save_results(data["SmsSid"], number_mask(data["From"]), filename)
+            # save metadata to firestore collection 1 (filename, masked identifier)
+            save_results_collection1(
+                data["SmsSid"], number_mask(data["From"]), filename)
+
+            # create results doc
+            save_results_collection2(data["SmsSid"], filename)
 
         # process text messages
         else:

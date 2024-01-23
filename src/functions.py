@@ -9,6 +9,7 @@ from vertexai.preview.generative_models import GenerativeModel, Part
 import firebase_admin
 from firebase_admin import firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
+import datetime
 
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
@@ -65,9 +66,7 @@ def sms_process(dict):
     print("processing sms")
 
 
-def save_results(id, user, file):
-
-    import datetime
+def save_results_collection1(id, user, file):
 
     # ct stores current time
     ct = datetime.datetime.now()
@@ -81,6 +80,23 @@ def save_results(id, user, file):
     doc_ref.set({"user": user, "fileName": file,
                 "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file,
                  "timeStamp": ct})
+
+
+def save_results_collection2(id, file):
+
+    # ct stores current time
+    ct = datetime.datetime.now()
+
+    if not firebase_admin._apps:
+        firebase_admin.initialize_app()
+
+    db = firestore.client()
+
+    doc_ref = db.collection("gemini-demo-text-result").document(id)
+    doc_ref.set({"fileName": file,
+                "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file,
+                 "query": "",
+                 "result": ""})
 
 
 def return_image(user):
