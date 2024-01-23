@@ -111,11 +111,9 @@ def generate_text(project_id: str, location: str, file: str, query: str) -> str:
     # Query the model
     response = multimodal_model.generate_content(
         [
-            # Add an example image
             Part.from_uri(
                 file, mime_type="image/png"
             ),
-            # Add an example query
             query
         ]
     )

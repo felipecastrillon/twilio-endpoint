@@ -33,7 +33,9 @@ def main(request):
         #  gcs bucket name - images saved here
         bucket_name = "twillio-images"
 
-        # print("flag type " + flag)
+        # required to initialize vertex client
+        project = "cf-data-analytics"
+        loc = "us-central1"
 
         # process multimedia messages (mms)
         if flag != "0":
@@ -41,19 +43,13 @@ def main(request):
             # download image from twillio
             mms_process(data)
 
-            #  filename of images in gcs
+            #  set filename of images sent to gcs. Use unique identifier from twillio
             filename = data["SmsSid"] + ".png"
 
-            # filename = data["SmsSid"] + ".png"
-
-            # bucket_name = "twillio-images"
-            source_file_name = filename
-            destination_blob_name = filename
-
             # Upload image to gcs bucket
-            upload_blob(bucket_name, source_file_name, destination_blob_name)
+            upload_blob(bucket_name, filename, filename)
 
-            # save metadata to firestore
+            # save metadata to firestore (filename, masked identifier)
             save_results(data["SmsSid"], number_mask(data["From"]), filename)
 
         # process text messages
@@ -61,18 +57,14 @@ def main(request):
 
             #  retrieve last image URL uploaded by same user from Firestore
             doc = return_image(number_mask(data["From"]))
-
-            # last image URL
-            # print(doc["fileName"])
-
             filename = doc["fileName"]
 
-            project = "cf-data-analytics"  # required to initialize vertex client
-            loc = "us-central1"
+            # construct gsl using filename
             path = "gs://" + bucket_name + "/" + filename  # uri
 
+            # genrate response using gemini
             genai_ouput = generate_text(
-                project, loc, path, "summarize this picture in one word")
+                project, loc, path, data["Body"])
 
             print(genai_ouput)
 
