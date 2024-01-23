@@ -72,6 +72,8 @@ def main(request):
 
             print(genai_ouput)
 
+            update_collection2(id, data["Body"], genai_ouput)
+
         #  debug: print entire payload from twillio
         myJSON = json.dumps(data)
         print(myJSON)
