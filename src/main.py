@@ -76,7 +76,7 @@ def main(request):
             path = "gs://" + bucket_name + "/" + filename  # uri
 
             genai_ouput = generate_text(
-                project, loc, path, filename, "summarize this picture in one word")
+                project, loc, path, "summarize this picture in one word")
 
             print(genai_ouput)
 
