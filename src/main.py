@@ -76,8 +76,8 @@ def main(request):
                 ".")[0], data["Body"], genai_ouput)
 
         #  debug: print entire payload from twillio
-        myJSON = json.dumps(data)
-        print(myJSON)
+        # myJSON = json.dumps(data)
+        # print(myJSON)
 
     except Exception as e:
         print(e)
