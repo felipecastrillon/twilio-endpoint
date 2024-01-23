@@ -27,7 +27,7 @@ def main(request):
 
     data = request.form
 
-    flag = str(data["MediaContentType0"])
+    flag = str(data["NumMedia"])
 
     print("flag type" + flag)
 
