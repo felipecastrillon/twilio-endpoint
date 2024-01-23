@@ -2,10 +2,6 @@ import functions_framework
 import json
 from functions import *
 
-# import firebase_admin
-# from firebase_admin import firestore
-# from google.cloud.firestore_v1.base_query import FieldFilter
-
 
 @functions_framework.http
 def main(request):
@@ -39,8 +35,8 @@ def main(request):
 
         # print("flag type " + flag)
 
+        # process multimedia messages (mms)
         if flag != "0":
-            # print("mms")
 
             # download image from twillio
             mms_process(data)
@@ -60,14 +56,14 @@ def main(request):
             # save metadata to firestore
             save_results(data["SmsSid"], number_mask(data["From"]), filename)
 
+        # process text messages
         else:
-            # print("not mms")
 
             #  retrieve last image URL uploaded by same user from Firestore
             doc = return_image(number_mask(data["From"]))
 
             # last image URL
-            print(doc["fileName"])
+            # print(doc["fileName"])
 
             filename = doc["fileName"]
 
@@ -80,11 +76,8 @@ def main(request):
 
             print(genai_ouput)
 
+        #  debug: print entire payload from twillio
         myJSON = json.dumps(data)
-
-        # print(number_mask(data["From"]))
-
-        # Displaying the JSON format
         print(myJSON)
 
     except Exception as e:
