@@ -2,9 +2,9 @@ import functions_framework
 import json
 from functions import *
 
-import firebase_admin
-from firebase_admin import firestore
-from google.cloud.firestore_v1.base_query import FieldFilter
+# import firebase_admin
+# from firebase_admin import firestore
+# from google.cloud.firestore_v1.base_query import FieldFilter
 
 
 @functions_framework.http
@@ -26,25 +26,31 @@ def main(request):
         # Set CORS headers for the main request
         headers = {"Access-Control-Allow-Origin": "*"}
 
+        ########### CORS headers compete ###########
+
+        # return flask forms as dict
         data = request.form
 
+        #  sms or mms - zero indicates sms
         flag = str(data["NumMedia"])
 
-        print("flag type " + flag)
+        #  gcs bucket name - images saved here
+        bucket_name = "twillio-images"
+
+        # print("flag type " + flag)
 
         if flag != "0":
-            print("mms")
+            # print("mms")
 
             # download image from twillio
             mms_process(data)
 
-            # list directory
-            # for x in os.listdir():
-            #     print(x)
-
+            #  filename of images in gcs
             filename = data["SmsSid"] + ".png"
 
-            bucket_name = "twillio-images"
+            # filename = data["SmsSid"] + ".png"
+
+            # bucket_name = "twillio-images"
             source_file_name = filename
             destination_blob_name = filename
 
@@ -55,9 +61,24 @@ def main(request):
             save_results(data["SmsSid"], number_mask(data["From"]), filename)
 
         else:
-            print("not mms")
+            # print("not mms")
 
-            return_image(number_mask(data["From"]))
+            #  retrieve last image URL uploaded by same user from Firestore
+            doc = return_image(number_mask(data["From"]))
+
+            # last image URL
+            print(doc["fileName"])
+
+            filename = doc["fileName"]
+
+            project = "cf-data-analytics"  # required to initialize vertex client
+            loc = "us-central1"
+            path = "gs://" + bucket_name + "/" + filename  # uri
+
+            genai_ouput = generate_text(
+                project, loc, path, filename, "summarize this picture in one word")
+
+            print(genai_ouput)
 
         myJSON = json.dumps(data)
 

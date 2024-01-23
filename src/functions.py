@@ -4,7 +4,8 @@ from dotenv import load_dotenv
 import requests
 import os
 from google.cloud import storage
-import time
+import vertexai
+from vertexai.preview.generative_models import GenerativeModel, Part
 import firebase_admin
 from firebase_admin import firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
@@ -18,6 +19,7 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
 
     generation_match_precondition = 0
 
+    # Upload the file to the bucket
     blob.upload_from_filename(
         source_file_name, if_generation_match=generation_match_precondition)
 
@@ -28,6 +30,7 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
 
 def number_mask(hash_str):
 
+    # dotenv used to test salt secret locally
     load_dotenv()
 
     # load salt secret
@@ -46,7 +49,10 @@ def number_mask(hash_str):
 
 def mms_process(dict):
 
+    #  twillio storage url (public)
     media_url = dict["MediaUrl0"]
+
+    # unique identifier used as file name
     filename = dict["SmsSid"] + ".png"
 
     with open(filename, 'wb') as f:
@@ -92,4 +98,25 @@ def return_image(user):
     )
 
     for doc in docs:
-        print(doc.to_dict())
+        output = doc.to_dict()
+
+    return output
+
+
+def generate_text(project_id: str, location: str, file: str, query: str) -> str:
+    # Initialize Vertex AI
+    vertexai.init(project=project_id, location=location)
+    # Load the model
+    multimodal_model = GenerativeModel("gemini-pro-vision")
+    # Query the model
+    response = multimodal_model.generate_content(
+        [
+            # Add an example image
+            Part.from_uri(
+                file, mime_type="image/png"
+            ),
+            # Add an example query
+            query
+        ]
+    )
+    return response.text
