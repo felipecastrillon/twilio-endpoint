@@ -2,6 +2,10 @@ import functions_framework
 import json
 from functions import *
 
+import firebase_admin
+from firebase_admin import firestore
+from google.cloud.firestore_v1.base_query import FieldFilter
+
 
 @functions_framework.http
 def main(request):
@@ -27,38 +31,53 @@ def main(request):
 
     print("flag type" + flag)
 
-    if flag == "image/jpeg" or flag == "image/png":
-        print("mms")
+    # if flag == "image/jpeg" or flag == "image/png":
+    #     print("mms")
 
-        # download image from twillio
-        mms_process(data)
+    #     # download image from twillio
+    #     mms_process(data)
 
-        # list directory
-        # for x in os.listdir():
-        #     print(x)
+    #     # list directory
+    #     # for x in os.listdir():
+    #     #     print(x)
 
-        filename = data["SmsSid"] + ".png"
+    #     filename = data["SmsSid"] + ".png"
 
-        bucket_name = "twillio-images"
-        source_file_name = filename
-        destination_blob_name = filename
+    #     bucket_name = "twillio-images"
+    #     source_file_name = filename
+    #     destination_blob_name = filename
 
-        # Upload image to gcs bucket
-        upload_blob(bucket_name, source_file_name, destination_blob_name)
+    #     # Upload image to gcs bucket
+    #     upload_blob(bucket_name, source_file_name, destination_blob_name)
 
-        # save metadata to firestore
-        save_results(data["SmsSid"], number_mask(data["From"]), filename)
+    #     # save metadata to firestore
+    #     save_results(data["SmsSid"], number_mask(data["From"]), filename)
 
-    else:
-        print("not mms")
+    # else:
+    #     print("not mms")
 
-        return_image(number_mask(data["From"]))
+    if not firebase_admin._apps:
+        firebase_admin.initialize_app()
 
-        myJSON = json.dumps(data)
+    db = firestore.client()
 
-        # print(number_mask(data["From"]))
+    docs = (
+        db.collection("gemini-demo-text")
+        .where(filter=FieldFilter("user", "==", user))
+        .order_by("timeStamp").limit_to_last(1)
+        .get()
+    )
 
-        # Displaying the JSON format
-        print(myJSON)
+    for doc in docs:
+        print(doc.to_dict())
+
+    return_image(number_mask(data["From"]))
+
+    myJSON = json.dumps(data)
+
+    # print(number_mask(data["From"]))
+
+    # Displaying the JSON format
+    print(myJSON)
 
     return ("done", 200, headers)
