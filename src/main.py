@@ -54,18 +54,11 @@ def main(request):
 
         return_image(number_mask(data["From"]))
 
+        myJSON = json.dumps(data)
 
-# for doc in docs:
-#     print(f"{doc.id} => {doc.to_dict()}")
-    # else:
-    #     sms_process(data)
+        # print(number_mask(data["From"]))
 
-    # Converting to JSON format
-    myJSON = json.dumps(data)
-
-    # print(number_mask(data["From"]))
-
-    # Displaying the JSON format
-    print(myJSON)
+        # Displaying the JSON format
+        print(myJSON)
 
     return ("done", 200, headers)
