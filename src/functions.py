@@ -93,10 +93,14 @@ def save_results_collection2(id, file):
     doc_ref.set({"fileName": file,
                 "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file,
                  "query": "",
-                 "result": ""})
+                 "result": "",
+                 "timeStamp": None})
 
 
 def update_collection2(id, query, result):
+
+    # ct stores current time
+    ct = datetime.datetime.now()
 
     if not firebase_admin._apps:
         firebase_admin.initialize_app()
@@ -105,7 +109,7 @@ def update_collection2(id, query, result):
 
     doc = db.collection("gemini-demo-text-result").document(id)
 
-    doc.update({"query": query, "result": result})
+    doc.update({"query": query, "result": result, "timeStamp": ct})
 
 
 def return_image(user):
