@@ -7,6 +7,7 @@ from google.cloud import storage
 import time
 import firebase_admin
 from firebase_admin import firestore
+from google.cloud.firestore_v1.base_query import FieldFilter
 
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
@@ -74,3 +75,21 @@ def save_results(id, user, file):
     doc_ref.set({"user": user, "fileName": file,
                 "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file,
                  "timeStamp": ct})
+
+
+def return_image(user):
+
+    if not firebase_admin._apps:
+        firebase_admin.initialize_app()
+
+    db = firestore.client()
+
+    docs = (
+        db.collection("gemini-demo-text")
+        .where(filter=FieldFilter("user", "==", user))
+        .order_by("timeStamp").limit_to_last(1)
+        .get()
+    )
+
+    for doc in docs:
+        print(doc.to_dict())

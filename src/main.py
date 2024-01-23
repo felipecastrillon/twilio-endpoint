@@ -34,8 +34,8 @@ def main(request):
         mms_process(data)
 
         # list directory
-        for x in os.listdir():
-            print(x)
+        # for x in os.listdir():
+        #     print(x)
 
         filename = data["SmsSid"] + ".png"
 
@@ -51,6 +51,12 @@ def main(request):
 
     else:
         print("not mms")
+
+        return_image(number_mask(data["From"]))
+
+
+# for doc in docs:
+#     print(f"{doc.id} => {doc.to_dict()}")
     # else:
     #     sms_process(data)
 
