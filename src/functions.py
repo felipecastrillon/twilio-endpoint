@@ -40,8 +40,6 @@ def number_mask(hash_str):
     # concatenate hash and salt
     val = hash_str + key
 
-    # print(sha256(val.encode('utf-8')).hexdigest())
-
     # hash the concatenated string
     out = sha256(val.encode('utf-8')).hexdigest()
 
