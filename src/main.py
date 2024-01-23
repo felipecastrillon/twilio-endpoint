@@ -1,6 +1,7 @@
 import functions_framework
 import json
 from functions import *
+import time
 
 
 @functions_framework.http
@@ -60,6 +61,7 @@ def main(request):
         else:
 
             #  retrieve last image URL uploaded by same user from Firestore
+            time.sleep(15)
             doc = return_image(number_mask(data["From"]))
             filename = doc["fileName"]
 
