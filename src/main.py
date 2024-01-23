@@ -31,47 +31,32 @@ def main(request):
 
     print("flag type " + flag)
 
-    # if flag == "image/jpeg" or flag == "image/png":
-    #     print("mms")
+    if flag != "0":
+        print("mms")
 
-    #     # download image from twillio
-    #     mms_process(data)
+        # download image from twillio
+        mms_process(data)
 
-    #     # list directory
-    #     # for x in os.listdir():
-    #     #     print(x)
+        # list directory
+        # for x in os.listdir():
+        #     print(x)
 
-    #     filename = data["SmsSid"] + ".png"
+        filename = data["SmsSid"] + ".png"
 
-    #     bucket_name = "twillio-images"
-    #     source_file_name = filename
-    #     destination_blob_name = filename
+        bucket_name = "twillio-images"
+        source_file_name = filename
+        destination_blob_name = filename
 
-    #     # Upload image to gcs bucket
-    #     upload_blob(bucket_name, source_file_name, destination_blob_name)
+        # Upload image to gcs bucket
+        upload_blob(bucket_name, source_file_name, destination_blob_name)
 
-    #     # save metadata to firestore
-    #     save_results(data["SmsSid"], number_mask(data["From"]), filename)
+        # save metadata to firestore
+        save_results(data["SmsSid"], number_mask(data["From"]), filename)
 
-    # else:
-    #     print("not mms")
+    else:
+        print("not mms")
 
-    if not firebase_admin._apps:
-        firebase_admin.initialize_app()
-
-    db = firestore.client()
-
-    docs = (
-        db.collection("gemini-demo-text")
-        .where(filter=FieldFilter("user", "==", number_mask(data["From"])))
-        .order_by("timeStamp").limit_to_last(1)
-        .get()
-    )
-
-    for doc in docs:
-        print(doc.to_dict())
-
-    return_image(number_mask(data["From"]))
+        return_image(number_mask(data["From"]))
 
     myJSON = json.dumps(data)
 
