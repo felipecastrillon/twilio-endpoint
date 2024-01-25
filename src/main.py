@@ -36,7 +36,7 @@ def main(request):
 
     print("starting threaded app")
 
-    print(data.to_json())
+    print(data)
 
     thread = threading.Thread(target=run, kwargs={
         'body': body,
