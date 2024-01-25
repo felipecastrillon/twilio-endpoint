@@ -28,9 +28,9 @@ def main(request):
 
     num_media = str(data["NumMedia"])
     if num_media == "0":
-        data["media_url"] = ""
+        data["MediaUrl0"] = ""
     else:
-        data["body"] = ""
+        data["Body"] = ""
 
     print("starting threaded app")
 
