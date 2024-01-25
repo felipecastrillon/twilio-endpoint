@@ -28,20 +28,22 @@ def main(request):
 
     num_media = str(data["NumMedia"])
     if num_media == "0":
-        data["MediaUrl0"] = ""
+        url = ""
+        body = data["Body"]
     else:
-        data["Body"] = ""
+        url = data["MediaUrl0"]
+        body = ""
 
     print("starting threaded app")
 
     print(data.to_json())
 
     thread = threading.Thread(target=run, kwargs={
-        'body': data["Body"],
+        'body': body,
         'num_media': data["NumMedia"],
         'sms_sid': data["SmsSid"],
         'sms_from': data["From"],
-        'media_url': data["MediaUrl0"]})
+        'media_url': url})
     thread.start()
 
     return ("done", 200, headers)
