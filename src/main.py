@@ -1,21 +1,14 @@
+import threading
 import functions_framework
 import json
 from functions import *
 from compute import *
 import time
-from threading import Thread
 
 
-class Compute(Thread):
-    def __init__(self, request):
-        Thread.__init__(self)
-        self.request = request
-
-    def run(self):
-        print("start")
-        time.sleep(50)
-        print(self.request)
-        print("done")
+def my_function():
+    time.sleep(30)
+    pass
 
 
 @functions_framework.http
@@ -36,8 +29,9 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
-    thread_a = Compute(request.__copy__())
-    thread_a.start()
+    thread = threading.Thread(target=my_function)
+    thread.start()
+    thread.join()
 
     return "Processing in background", 200
 
