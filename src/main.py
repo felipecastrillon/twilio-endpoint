@@ -9,7 +9,9 @@ import time
 @functions_framework.http
 def main(request):
 
-    def my_function():
+    def my_function(**kwargs):
+        your_params = kwargs.get('post_data', {})
+        print(your_params)
         time.sleep(30)
     pass
 
@@ -28,7 +30,8 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
-    thread = threading.Thread(target=my_function)
+    thread = threading.Thread(target=my_function, kwargs={
+        'post_data': "blah blah blah"})
     thread.start()
 
     return "Processing in background", 200
