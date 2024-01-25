@@ -46,13 +46,13 @@ def number_mask(hash_str):
     return out
 
 
-def mms_process(dict):
+def mms_process(media_url, sms_id):
 
     #  twillio storage url (public)
-    media_url = dict["MediaUrl0"]
+    # media_url = dict["MediaUrl0"]
 
     # unique identifier used as file name
-    filename = dict["SmsSid"] + ".png"
+    filename = sms_id + ".png"
 
     with open(filename, 'wb') as f:
         image_url = media_url

@@ -4,11 +4,17 @@ from functions import *
 
 def run(**kwargs):
 
+    num_media = kwargs.get('num_media', {})
+    sms_sid = kwargs.get('sms_sid', {})
+    sms_from = kwargs.get('sms_from', {})
+    body = kwargs.get('body', {})
+    media_url = kwargs.get('media_url', {})
+
     # return flask forms as dict
-    data = request.form
+    # data = request.form
 
     #  sms or mms - zero indicates sms
-    flag = str(data["NumMedia"])
+    flag = str(num_media)
 
     #  gcs bucket name - images saved here
     bucket_name = "twillio-images"
@@ -20,28 +26,28 @@ def run(**kwargs):
     # process multimedia messages (mms)
     if flag != "0":
 
-        # download image from twillio
-        mms_process(data)
+        # download image sms_from twillio
+        mms_process(media_url, sms_sid)
 
-        #  set filename of images sent to gcs. Use unique identifier from twillio
-        filename = data["SmsSid"] + ".png"
+        #  set filename of images sent to gcs. Use unique identifier sms_from twillio
+        filename = sms_sid + ".png"
 
         # Upload image to gcs bucket
         upload_blob(bucket_name, filename, filename)
 
         # save metadata to firestore collection 1 (filename, masked identifier)
         save_results_collection1(
-            data["SmsSid"], number_mask(data["From"]), filename)
+            sms_sid, number_mask(sms_from), filename)
 
         # create results doc
-        save_results_collection2(data["SmsSid"], filename)
+        save_results_collection2(sms_sid, filename)
 
     # process text messages
     else:
 
-        #  retrieve last image URL uploaded by same user from Firestore
-        time.sleep(5)
-        doc = return_image(number_mask(data["From"]))
+        #  retrieve last image URL uploaded by same user sms_from Firestore
+        time.sleep(45)
+        doc = return_image(number_mask(sms_from))
         filename = doc["fileName"]
 
         # construct gsl using filename
@@ -49,9 +55,9 @@ def run(**kwargs):
 
         # genrate response using gemini
         genai_ouput = generate_text(
-            project, loc, path, data["Body"])
+            project, loc, path, body)
 
         print(genai_ouput)
 
         update_collection2(doc["fileName"].split(
-            ".")[0], data["Body"], genai_ouput)
+            ".")[0], body, genai_ouput)
