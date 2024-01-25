@@ -61,3 +61,5 @@ def run(**kwargs):
 
         update_collection2(doc["fileName"].split(
             ".")[0], body, genai_ouput)
+
+    return
