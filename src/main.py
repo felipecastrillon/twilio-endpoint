@@ -26,14 +26,15 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
-    # data = {}
-    # data["Body"] = "who is this"
-    # data["NumMedia"] = "0"
-    # data["SmsSid"] = "SM672e0fb308ef4a5d179c884bab34d0df"
-    # data["From"] = "+15132362064"
-    # data["MediaUrl0"] = ""
+    num_media = str(data["NumMedia"])
+    if num_media == "0":
+        data["media_url"] = ""
+    else:
+        data["body"] = ""
 
     print("starting threaded app")
+
+    print(data.to_json())
 
     thread = threading.Thread(target=run, kwargs={
         'body': data["Body"],
