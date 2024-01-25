@@ -6,13 +6,12 @@ from compute import *
 import time
 
 
-def my_function():
-    time.sleep(30)
-    pass
-
-
 @functions_framework.http
 def main(request):
+
+    def my_function():
+        time.sleep(30)
+    pass
 
     if request.method == "OPTIONS":
         # Allows GET requests from any origin with the Content-Type
@@ -31,7 +30,6 @@ def main(request):
 
     thread = threading.Thread(target=my_function)
     thread.start()
-    thread.join()
 
     return "Processing in background", 200
 
