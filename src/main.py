@@ -13,7 +13,6 @@ def main(request):
         your_params = kwargs.get('post_data', {})
         print(your_params)
         time.sleep(30)
-    pass
 
     if request.method == "OPTIONS":
         # Allows GET requests from any origin with the Content-Type
