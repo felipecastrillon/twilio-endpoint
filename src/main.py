@@ -6,7 +6,7 @@ from compute import *
 import time
 
 
-@functions_framework.http
+# @functions_framework.http
 def main(request):
 
     data = request.form
@@ -26,6 +26,15 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
+    # data = {}
+    # data["Body"] = "who is this"
+    # data["NumMedia"] = "0"
+    # data["SmsSid"] = "SM672e0fb308ef4a5d179c884bab34d0df"
+    # data["From"] = "+15132362064"
+    # data["MediaUrl0"] = ""
+
+    print("starting threaded app")
+
     thread = threading.Thread(target=run, kwargs={
         'body': data["Body"],
         'num_media': data["NumMedia"],
@@ -36,66 +45,69 @@ def main(request):
 
     return ("done", 200, headers)
 
-    # try:
 
-    ########### CORS headers compete ###########
+# main("none")
 
-    #     # return flask forms as dict
-    #     data = request.form
+# try:
 
-    #     #  sms or mms - zero indicates sms
-    #     flag = str(data["NumMedia"])
+########### CORS headers compete ###########
 
-    #     #  gcs bucket name - images saved here
-    #     bucket_name = "twillio-images"
+#     # return flask forms as dict
+#     data = request.form
 
-    #     # required to initialize vertex client
-    #     project = "cf-data-analytics"
-    #     loc = "us-central1"
+#     #  sms or mms - zero indicates sms
+#     flag = str(data["NumMedia"])
 
-    #     # process multimedia messages (mms)
-    #     if flag != "0":
+#     #  gcs bucket name - images saved here
+#     bucket_name = "twillio-images"
 
-    #         # download image from twillio
-    #         mms_process(data)
+#     # required to initialize vertex client
+#     project = "cf-data-analytics"
+#     loc = "us-central1"
 
-    #         #  set filename of images sent to gcs. Use unique identifier from twillio
-    #         filename = data["SmsSid"] + ".png"
+#     # process multimedia messages (mms)
+#     if flag != "0":
 
-    #         # Upload image to gcs bucket
-    #         upload_blob(bucket_name, filename, filename)
+#         # download image from twillio
+#         mms_process(data)
 
-    #         # save metadata to firestore collection 1 (filename, masked identifier)
-    #         save_results_collection1(
-    #             data["SmsSid"], number_mask(data["From"]), filename)
+#         #  set filename of images sent to gcs. Use unique identifier from twillio
+#         filename = data["SmsSid"] + ".png"
 
-    #         # create results doc
-    #         save_results_collection2(data["SmsSid"], filename)
+#         # Upload image to gcs bucket
+#         upload_blob(bucket_name, filename, filename)
 
-    #     # process text messages
-    #     else:
+#         # save metadata to firestore collection 1 (filename, masked identifier)
+#         save_results_collection1(
+#             data["SmsSid"], number_mask(data["From"]), filename)
 
-    #         #  retrieve last image URL uploaded by same user from Firestore
-    #         time.sleep(5)
-    #         doc = return_image(number_mask(data["From"]))
-    #         filename = doc["fileName"]
+#         # create results doc
+#         save_results_collection2(data["SmsSid"], filename)
 
-    #         # construct gsl using filename
-    #         path = "gs://" + bucket_name + "/" + filename  # uri
+#     # process text messages
+#     else:
 
-    #         # genrate response using gemini
-    #         genai_ouput = generate_text(
-    #             project, loc, path, data["Body"])
+#         #  retrieve last image URL uploaded by same user from Firestore
+#         time.sleep(5)
+#         doc = return_image(number_mask(data["From"]))
+#         filename = doc["fileName"]
 
-    #         print(genai_ouput)
+#         # construct gsl using filename
+#         path = "gs://" + bucket_name + "/" + filename  # uri
 
-    #         update_collection2(doc["fileName"].split(
-    #             ".")[0], data["Body"], genai_ouput)
+#         # genrate response using gemini
+#         genai_ouput = generate_text(
+#             project, loc, path, data["Body"])
 
-    #     #  debug: print entire payload from twillio
-    #     # myJSON = json.dumps(data)
-    #     # print(myJSON)
+#         print(genai_ouput)
 
-    # except Exception as e:
-    #     print(e)
-    # return ("done", 200, headers)
+#         update_collection2(doc["fileName"].split(
+#             ".")[0], data["Body"], genai_ouput)
+
+#     #  debug: print entire payload from twillio
+#     # myJSON = json.dumps(data)
+#     # print(myJSON)
+
+# except Exception as e:
+#     print(e)
+# return ("done", 200, headers)

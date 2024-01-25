@@ -17,6 +17,8 @@ def run(**kwargs):
         #  sms or mms - zero indicates sms
         flag = str(num_media)
 
+        print("flag" + flag)
+
         #  gcs bucket name - images saved here
         bucket_name = "twillio-images"
 
@@ -47,7 +49,7 @@ def run(**kwargs):
         else:
 
             #  retrieve last image URL uploaded by same user sms_from Firestore
-            time.sleep(45)
+            time.sleep(1)
             doc = return_image(number_mask(sms_from))
             filename = doc["fileName"]
 
