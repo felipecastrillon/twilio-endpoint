@@ -53,6 +53,8 @@ def run(**kwargs):
             # create results doc
             save_results_collection2(sms_sid, filename)
 
+            print("Filename saved to collection 2")
+
         # process text messages
         else:
 
@@ -60,7 +62,7 @@ def run(**kwargs):
 
             print("processing sms")
 
-            time.sleep(1)
+            # time.sleep(1)
             doc = return_image(number_mask(sms_from))
 
             print("doc returned from Firestore")
