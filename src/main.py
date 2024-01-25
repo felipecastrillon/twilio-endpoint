@@ -9,32 +9,38 @@ import time
 @functions_framework.http
 def main(request):
 
-    data = request.form
+    try:
 
-    if request.method == "OPTIONS":
-        # Allows GET requests from any origin with the Content-Type
-        # header and caches preflight response for an 3600s
-        headers = {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET",
-            "Access-Control-Allow-Headers": "Content-Type",
-            "Access-Control-Max-Age": "3600",
-        }
+        data = request.form
 
-        return ("", 204, headers)
+        if request.method == "OPTIONS":
+            # Allows GET requests from any origin with the Content-Type
+            # header and caches preflight response for an 3600s
+            headers = {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Access-Control-Max-Age": "3600",
+            }
 
-    # Set CORS headers for the main request
-    headers = {"Access-Control-Allow-Origin": "*"}
+            return ("", 204, headers)
 
-    thread = threading.Thread(target=run, kwargs={
-        'body': data["Body"],
-        'num_media': data["NumMedia"],
-        'sms_sid': data["SmsSid"],
-        'sms_from': data["From"],
-        'media_url': data["MediaUrl0"]})
-    thread.start()
+        # Set CORS headers for the main request
+        headers = {"Access-Control-Allow-Origin": "*"}
 
-    return ("done", 200, headers)
+        thread = threading.Thread(target=run, kwargs={
+            'body': data["Body"],
+            'num_media': data["NumMedia"],
+            'sms_sid': data["SmsSid"],
+            'sms_from': data["From"],
+            'media_url': data["MediaUrl0"]})
+        thread.start()
+
+        return ("done", 200, headers)
+    except Exception as e:
+        print(e)
+
+    # try:
 
     ########### CORS headers compete ###########
 
