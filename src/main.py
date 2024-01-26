@@ -31,6 +31,8 @@ def main(request):
     if "MediaUrl0" in data and "Body" in data:
         print("sms and mms")
         dtype = "both"
+        url = data["MediaUrl0"]
+        body = data["Body"]
     elif "MediaUrl0" in "Body" not in data:
         print("mms")
         dtype = "mms"
@@ -41,13 +43,6 @@ def main(request):
         dtype = "sms"
         url = ""
         body = data["Body"]
-
-    # if num_media == "0":
-    #     url = ""
-    #     body = data["Body"]
-    # else:
-    #     url = data["MediaUrl0"]
-    #     body = ""
 
     print("starting threaded app")
 
