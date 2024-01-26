@@ -77,7 +77,7 @@ def save_results_collection2(id, file):
 
     doc_ref = db.collection("gemini-demo-text-result").document(id)
     doc_ref.set({"fileName": file,
-                "fileLocation": "https://storage.cloud.google.com/twillio-images/" + file,
+                "fileLocation": "https://storage.googleapis.com/twillio-images/" + file,
                  "query": "",
                  "result": "",
                  "timeStamp": None})
