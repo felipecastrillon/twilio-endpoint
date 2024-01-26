@@ -26,8 +26,8 @@ def main(request):
     # Set CORS headers for the main request
     headers = {"Access-Control-Allow-Origin": "*"}
 
-    print(("MediaUrl0" in data))
-    print(("Body" in data))
+    print("ulr?: " + ("MediaUrl0" in data))
+    print("body?: " + ("Body" in data))
 
     if ("MediaUrl0" in data) & ("Body" in data):
         print("sms and mms")
