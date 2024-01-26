@@ -4,8 +4,10 @@ from functions import *
 
 def run(**kwargs):
 
+    delay = 25
+
     try:
-        num_media = kwargs.get('num_media', {})
+        # num_media = kwargs.get('num_media', {})
         sms_sid = kwargs.get('sms_sid', {})
         sms_from = kwargs.get('sms_from', {})
         body = kwargs.get('body', {})
@@ -21,8 +23,6 @@ def run(**kwargs):
 
         # process multimedia messages (mms)
         if dtype == "mms":
-
-            print("processing mms")
 
             # download image sms_from twillio
             mms_process(media_url, sms_sid)
@@ -80,7 +80,7 @@ def run(**kwargs):
 
             print("processing sms")
 
-            for i in range(100):
+            for i in range(delay):
                 time.sleep(1)
                 print(i)
 
@@ -115,7 +115,7 @@ def run(**kwargs):
 
             print("processing sms")
 
-            for i in range(100):
+            for i in range(delay):
                 time.sleep(1)
                 print(i)
 
@@ -129,18 +129,13 @@ def run(**kwargs):
             # construct gsl using filename
             path = "gs://" + bucket_name + "/" + filename  # uri
 
-            print("file path: " + path)
-            print("body: " + body)
-            print("project: " + project)
-
-            print(type(body))
-
             # genrate response using gemini
             genai_ouput = generate_text(
                 project, loc, path, body)
 
             print(genai_ouput)
 
+            # upload results to firestore
             update_collection2(doc["fileName"].split(
                 ".")[0], body, genai_ouput)
 
