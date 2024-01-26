@@ -62,7 +62,9 @@ def run(**kwargs):
 
             print("processing sms")
 
-            time.sleep(300)
+            for i in range(100):
+                time.sleep(1)
+                print(i)
 
             doc = return_image(number_mask(sms_from))
 
