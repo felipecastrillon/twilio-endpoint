@@ -24,10 +24,6 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
     blob.upload_from_filename(
         source_file_name, if_generation_match=generation_match_precondition)
 
-    print(
-        f"File {source_file_name} uploaded to {destination_blob_name}."
-    )
-
 
 def number_mask(hash_str):
 
@@ -48,20 +44,12 @@ def number_mask(hash_str):
 
 def mms_process(media_url, sms_id):
 
-    #  twillio storage url (public)
-    # media_url = dict["MediaUrl0"]
-
     # unique identifier used as file name
     filename = sms_id + ".png"
 
     with open(filename, 'wb') as f:
         image_url = media_url
         f.write(requests.get(image_url).content)
-    print("processing mms")
-
-
-def sms_process(dict):
-    print("processing sms")
 
 
 def save_results_collection1(id, user, file):

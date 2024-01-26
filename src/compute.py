@@ -30,7 +30,7 @@ def run(**kwargs):
             #  set filename of images sent to gcs. Use unique identifier sms_from twillio
             filename = sms_sid + ".png"
 
-            print("processing file: " + filename)
+            # print("processing file: " + filename)
 
             # Upload image to gcs bucket
             upload_blob(bucket_name, filename, filename)
