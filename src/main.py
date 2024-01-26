@@ -34,12 +34,12 @@ def main(request):
         dtype = "both"
         url = data["MediaUrl0"]
         body = data["Body"]
-    elif "MediaUrl0" in "Body" not in data:
+    elif ("MediaUrl0" in data) & ("Body" not in data):
         print("mms")
         dtype = "mms"
         url = data["MediaUrl0"]
         body = ""
-    elif "Body" in data and "MediaUrl0" not in data:
+    elif ("MediaUrl0" not in data) & ("Body" in data):
         print("sms")
         dtype = "sms"
         url = ""
