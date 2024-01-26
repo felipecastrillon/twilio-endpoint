@@ -27,18 +27,34 @@ def main(request):
     headers = {"Access-Control-Allow-Origin": "*"}
 
     num_media = str(data["NumMedia"])
-    if num_media == "0":
-        url = ""
-        body = data["Body"]
-    else:
+
+    if "MediaUrl0" in data and "Body" in data:
+        print("sms and mms")
+        dtype = "both"
+    elif "MediaUrl0" in "Body" not in data:
+        print("mms")
+        dtype = "mms"
         url = data["MediaUrl0"]
         body = ""
+    elif "Body" in data and "MediaUrl0" not in data:
+        print("sms")
+        dtype = "sms"
+        url = ""
+        body = data["Body"]
+
+    # if num_media == "0":
+    #     url = ""
+    #     body = data["Body"]
+    # else:
+    #     url = data["MediaUrl0"]
+    #     body = ""
 
     print("starting threaded app")
 
     print(data)
 
     thread = threading.Thread(target=run, kwargs={
+        'dtype': dtype,
         'body': body,
         'num_media': data["NumMedia"],
         'sms_sid': data["SmsSid"],
