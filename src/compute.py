@@ -74,6 +74,10 @@ def run(**kwargs):
             path = "gs://" + bucket_name + "/" + filename  # uri
 
             print("file path: " + path)
+            print("body: " + body)
+            print("project: " + project)
+
+            print(type(body))
 
             # genrate response using gemini
             genai_ouput = generate_text(
