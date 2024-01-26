@@ -62,7 +62,8 @@ def run(**kwargs):
 
             print("processing sms")
 
-            time.sleep(200)
+            time.sleep(300)
+
             doc = return_image(number_mask(sms_from))
 
             print("doc returned from Firestore")
