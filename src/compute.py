@@ -80,9 +80,9 @@ def run(**kwargs):
 
             print("processing sms")
 
-            for i in range(delay):
-                time.sleep(1)
-                print(i)
+            # for i in range(delay):
+            #     time.sleep(1)
+            #     print(i)
 
             doc = return_image(number_mask(sms_from))
 
@@ -110,10 +110,10 @@ def run(**kwargs):
                 ".")[0], body, genai_ouput)
 
         # process text messages
-        elif body == "sms":
+        elif dtype == "sms":
             #  retrieve last image URL uploaded by same user sms_from Firestore
 
-            print("processing sms")
+            # print("processing sms")
 
             for i in range(delay):
                 time.sleep(1)
@@ -121,8 +121,8 @@ def run(**kwargs):
 
             doc = return_image(number_mask(sms_from))
 
-            print("doc returned from Firestore")
-            print(doc)
+            # print("doc returned from Firestore")
+            # print(doc)
 
             filename = doc["fileName"]
 
@@ -133,7 +133,7 @@ def run(**kwargs):
             genai_ouput = generate_text(
                 project, loc, path, body)
 
-            print(genai_ouput)
+            # print(genai_ouput)
 
             # upload results to firestore
             update_collection2(doc["fileName"].split(
