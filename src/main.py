@@ -1,9 +1,7 @@
 import threading
 import functions_framework
-# import json
 from functions import *
 from compute import *
-# import time
 
 
 @functions_framework.http
@@ -12,8 +10,7 @@ def main(request):
     data = request.form
 
     if request.method == "OPTIONS":
-        # Allows GET requests from any origin with the Content-Type
-        # header and caches preflight response for an 3600s
+
         headers = {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET",
@@ -30,24 +27,22 @@ def main(request):
     print("body?: " + str(("Body" in data)))
 
     if ("MediaUrl0" in data) & ("Body" in data):
-        print("sms and mms")
+        print("processing sms and mms")
         dtype = "both"
         url = data["MediaUrl0"]
         body = data["Body"]
     elif ("MediaUrl0" in data) & ("Body" not in data):
-        print("mms")
+        print("processing mms")
         dtype = "mms"
         url = data["MediaUrl0"]
         body = ""
     elif ("MediaUrl0" not in data) & ("Body" in data):
-        print("sms")
+        print("processing sms")
         dtype = "sms"
         url = ""
         body = data["Body"]
 
     print("starting threaded app")
-
-    print(data)
 
     thread = threading.Thread(target=run, kwargs={
         'dtype': dtype,

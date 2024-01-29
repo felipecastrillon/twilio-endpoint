@@ -1,8 +1,0 @@
-{
-"user" : "9dcce57c946f3fcd90c75710d1aeba7c7e6bd3e2dab68136cff840d2c4eaf247",
-"fileName": "MMf6a09f4028b588bc92102b00ee0d1ea0.png",
-"fileLocation" : "https://storage.cloud.google.com/twillio-images/MMf6a09f4028b588bc92102b00ee0d1ea0.png"
-}
-
-
-"https://storage.cloud.google.com/twillio-images/" + filename

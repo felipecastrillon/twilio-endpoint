@@ -7,7 +7,6 @@ def run(**kwargs):
     delay = 15
 
     try:
-        # num_media = kwargs.get('num_media', {})
         sms_sid = kwargs.get('sms_sid', {})
         sms_from = kwargs.get('sms_from', {})
         body = kwargs.get('body', {})
