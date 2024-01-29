@@ -8,6 +8,18 @@ Results are saved to [Firestore](https://firebase.google.com/docs/firestore) and
 
 Gemini Pro Vision returns a text response from an input images and prompt. You can find more examples [here](https://cloud.google.com/vertex-ai/docs/generative-ai/multimodal/sdk-for-gemini/gemini-sdk-overview-reference#generate-content-from-text-and-image).
 
+You can find an example results document below:
+
+```json
+{
+  "fileLocation": "https://storage.googleapis.com/twillio-images/MM276c92987032d033a2ae6d71451a9279.png",
+  "fileName": "MM276c92987032d033a2ae6d71451a9279.png",
+  "query": "What is this course called?",
+  "result": " This course is called a dosa. A dosa is a type of thin pancake or crepe that is made from a fermented batter of rice and lentils. It is a popular dish in South India and is often served with a variety of chutneys and sambar.",
+  "timeStamp": "January 29, 2024 at 9:52:19.060 AM UTC-5"
+}
+```
+
 # Setup
 
 This project includes a yaml file for deployment to Google Cloud using Github Actions maintained here: https://github.com/google-github-actions/deploy-cloud-functions. The Github Action Workflow requires several _"Action Secrets"_ used to set environment variables during deployment. Set the following secrets in the repository before deployment.
