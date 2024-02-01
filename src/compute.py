@@ -17,7 +17,7 @@ def run(**kwargs):
         bucket_name = "twillio-images"
 
         # required to initialize vertex client
-        project = "cf-data-analytics"
+        project = "felipe-sandbox-354619"
         loc = "us-central1"
 
         # process multimedia messages (mms)
