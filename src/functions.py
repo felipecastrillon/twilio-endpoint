@@ -122,7 +122,10 @@ def generate_text(project_id: str, location: str, file: str, query: str) -> str:
     vertexai.init(project=project_id, location=location)
     # Load the model
     multimodal_model = GenerativeModel("gemini-pro-vision")
-    # Query the model
+    # Query the model 
+    query = "You are a knowledgeable agent. You are brief in your answers and " + \
+            "respond in only one or two sentences without extra verbiage. Please " + \
+            "answer the following user question: \n\n" + query 
     response = multimodal_model.generate_content(
         [
             Part.from_uri(
