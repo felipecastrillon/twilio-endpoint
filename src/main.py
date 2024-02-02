@@ -26,7 +26,18 @@ def main(request):
     print("ulr?: " + str(("MediaUrl0" in data)))
     print("body?: " + str(("Body" in data)))
 
-    if ("MediaUrl0" in data) & ("Body" in data):
+    body_flag = False
+
+    try:
+        if data["Body"] != "":
+            body_flag = True
+        else:
+            body_flag = False
+
+    except:
+        print("no Body field")
+
+    if ("MediaUrl0" in data) & ("Body" in data) & (body_flag):
         print("processing sms and mms")
         dtype = "both"
         url = data["MediaUrl0"]
