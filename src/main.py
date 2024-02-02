@@ -37,12 +37,14 @@ def main(request):
     except:
         print("no Body field")
 
+    print("body flag " + str(body_flag))
+
     if ("MediaUrl0" in data) & ("Body" in data) & (body_flag):
         print("processing sms and mms")
         dtype = "both"
         url = data["MediaUrl0"]
         body = data["Body"]
-    elif ("MediaUrl0" in data) & ("Body" not in data):
+    elif ("MediaUrl0" in data) & (("Body" not in data) | (not body_flag)):
         print("processing mms")
         dtype = "mms"
         url = data["MediaUrl0"]
